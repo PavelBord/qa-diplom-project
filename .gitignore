@@ -11,3 +11,4 @@ allure-report
 .vscode
 # Virtual environments
 .venv
+README.md
