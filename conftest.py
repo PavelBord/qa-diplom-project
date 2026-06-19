@@ -1,5 +1,5 @@
 import pytest
-from playwright.sync_api import Page
+from playwright.sync_api import Page, expect
 from pages.login_page import LoginPage
 from pages.home_page import HomePage
 from pages.boards_page import BoardsPage
@@ -39,4 +39,6 @@ def tasks_page(page: Page) -> TasksPage:
 def authorized_page(page: Page, login_page: LoginPage) -> Page:
     login_page.open()
     login_page.login(EMAIL, PASSWORD)
+    expect(page.get_by_role("button", name="admin")).to_be_visible()
+
     return page

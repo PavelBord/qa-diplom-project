@@ -7,7 +7,7 @@ class HomePage(BasePage):
         super().__init__(page)
 
     def open(self) -> None:
-        self.open_url("http://localhost:3000/automation-lab")
+        self.open_url("http://localhost:3000/")
 
     def check_opened(self) -> None:
         expect(self.page.locator(".brand-title")).to_be_visible()
