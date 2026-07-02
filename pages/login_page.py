@@ -11,7 +11,7 @@ class LoginPage(BasePage):
         self.login_button: Locator = page.locator('[data-qa="login-submit-button"]')
 
     def open(self) -> None:
-        self.open_url("/login")
+        self.open_url("login")
 
     def login(self, email: str, password: str) -> None:
         self.email_input.fill(email)

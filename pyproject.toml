@@ -10,23 +10,23 @@ dependencies = [
     "pydantic>=2.13.4",
     "pytest>=9.0.3",
     "pytest-playwright>=0.8.0",
+    "python-dotenv>=1.2.2",
     "requests>=2.34.2",
+    "taskipy>=1.14.1",
 ]
 [tool.pytest.ini_options]
-testpaths = [
-    "tests",
-]
-pythonpath = [
-    ".",
-]
-addopts = "-v"
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-v  --alluredir=allure-results --clean-alluredir"
 base_url = "http://localhost:3000"
 markers = [
-    "smoke: быстрые тесты",
-    "regression: регрессионные тесты",
-    "login: тесты авторизации",
-    "boards: тесты досок",
-    "dashboard: тесты панели",
-    "tasks: тесты задач",
-    "logout: тесты выхода из системы",
+    "dashboard: Dashboard tests",
+    "boards: Boards tests",
+    "tasks: Tasks tests",
+    "logout: Logout tests",
+    "api: API tests",
+    "ui: UI tests",
     ]
+[tool.taskipy.tasks]
+report = "allure serve allure-results"
+clean = "rm -rf allure-results allure-report"

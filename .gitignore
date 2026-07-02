@@ -12,6 +12,3 @@ allure-report
 # Virtual environments
 .venv
 README.md
-tests/api/
-models/
-services/

@@ -11,43 +11,54 @@ from pages.dashboard_page import DashboardPage
 @allure.feature("Home")
 @allure.title("Отображение главной страницы")
 def test_home_page(home_page: HomePage) -> None:
-    home_page.open()
-    home_page.check_opened()
+    with allure.step("Открыть главную страницу"):
+        home_page.open()
+    with allure.step("Проверить главную страницу"):
+        home_page.check_opened()
 
 
 @allure.feature("Login")
 @allure.title("Отображение страницы логина")
 def test_login_page(login_page: LoginPage) -> None:
-    login_page.open()
-    login_page.check_opened()
+    with allure.step("Открыть страницу логина"):
+        login_page.open()
+    with allure.step("Проверить страницу логина"):
+        login_page.check_opened()
 
 
 @allure.feature("Dashboard")
-@allure.title("Отображение информации о пользователе")
+@allure.title("Отобразитьинформацию о пользователе")
 @pytest.mark.dashboard
-def test_authorization(authorized_page: Page, dashboard_page: DashboardPage) -> None:
-    dashboard_page.check_user_info()
+def test_authorization(login_as_admin: Page, dashboard_page: DashboardPage) -> None:
+    with allure.step("Проверить информацию о пользователе"):
+        dashboard_page.check_user_info()
 
 
 @allure.feature("Boards")
 @allure.title("Отображение страницы всех досок")
 @pytest.mark.boards
-def test_boards_page(authorized_page: Page, dashboard_page: DashboardPage, boards_page: BoardsPage) -> None:
-    dashboard_page.open_boards()
-    boards_page.check_opened()
+def test_boards_page(login_as_admin: Page, dashboard_page: DashboardPage, boards_page: BoardsPage) -> None:
+    with allure.step("Открыть страницу досок"):
+        dashboard_page.open_boards()
+    with allure.step("Проверить страницу досок"):
+        boards_page.check_opened()
 
 
 @allure.feature("Tasks")
 @allure.title("Отображение страницы всех задач")
 @pytest.mark.tasks
-def test_tasks_page(authorized_page: Page, tasks_page: TasksPage) -> None:
-    tasks_page.open()
-    tasks_page.check_opened()
+def test_tasks_page(login_as_admin: Page, tasks_page: TasksPage) -> None:
+    with allure.step("Открыть страницу задач"):
+        tasks_page.open()
+    with allure.step("Проверить страницу задач"):
+        tasks_page.check_opened()
 
 
 @allure.feature("Logout")
 @allure.title("Выход из аккаунта")
 @pytest.mark.logout
-def test_logout(authorized_page: Page, dashboard_page: DashboardPage, login_page: LoginPage) -> None:
-    dashboard_page.logout()
-    login_page.check_opened()
+def test_logout(login_as_admin: Page, dashboard_page: DashboardPage, login_page: LoginPage) -> None:
+    with allure.step("Выход из аккаунта"):
+        dashboard_page.logout()
+    with allure.step("Проверить страницу логина"):
+        login_page.check_opened()
