@@ -1,15 +1,23 @@
-# Python-generated files
+# Python
 __pycache__/
-*.py[oc]
+*.py[cod]
+.pytest_cache/
+
+# Build
 build/
 dist/
+*.egg-info/
 wheels/
-*.egg-info
-.pytest_cache
-allure-results
-allure-report
-.vscode
-.env
-# Virtual environments
-.venv
 
+# Virtual environment
+.venv/
+
+# Environment variables
+.env
+
+# Allure
+allure-results/
+allure-report/
+
+# IDE
+.vscode/
