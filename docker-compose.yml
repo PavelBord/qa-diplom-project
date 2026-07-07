@@ -1,0 +1,9 @@
+services:
+  tests:
+    build: .
+    network_mode: host
+    env_file:
+      - .env
+    volumes:
+      - ./allure-results:/app/allure-results
+    command: uv run pytest

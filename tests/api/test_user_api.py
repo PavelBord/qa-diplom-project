@@ -67,3 +67,90 @@ def test_get_users_with_params(admin_token, skip, limit):
     users = response.json()
     if users:
         UserModel(**users[0])
+
+
+def test_get_users_without_token():
+    users_service = UsersService()
+
+    response = users_service.get_users("")
+
+    assert response.status_code == 401
+
+
+def test_update_user_with_invalid_email(admin_token):
+    users_service = UsersService()
+    user_id = users_service.get_users(admin_token).json()[0]["id"]
+    user_data = {
+        "username": faker.user_name(),
+        "email": "invalid_email",
+        "role": "user",
+        "avatar_url": None,
+    }
+    response = users_service.update_user(
+        user_id=user_id, user_data=user_data, token=admin_token)
+
+    assert response.status_code == 422
+
+
+def test_update_user_with_empty_username(admin_token):
+    users_service = UsersService()
+    user_id = users_service.get_users(admin_token).json()[0]["id"]
+    user_data = {
+        "username": "",
+        "email": faker.email(),
+        "role": "user",
+        "avatar_url": None,
+    }
+    response = users_service.update_user(
+        user_id=user_id, user_data=user_data, token=admin_token)
+
+    assert response.status_code == 422
+
+
+def test_update_user_with_empty_email(admin_token):
+    users_service = UsersService()
+
+    user_id = users_service.get_users(admin_token).json()[0]["id"]
+
+    user_data = {
+        "username": faker.user_name(),
+        "email": "",
+        "role": "user",
+        "avatar_url": None,
+    }
+
+    response = users_service.update_user(
+        user_id=user_id, user_data=user_data, token=admin_token)
+
+    assert response.status_code == 422
+
+
+def test_update_user_with_invalid_role(admin_token):
+    users_service = UsersService()
+
+    user_id = users_service.get_users(admin_token).json()[0]["id"]
+
+    user_data = {
+        "username": faker.user_name(),
+        "email": faker.email(),
+        "role": "superuser",
+        "avatar_url": None,
+    }
+
+    response = users_service.update_user(
+        user_id=user_id, user_data=user_data, token=admin_token)
+
+    assert response.status_code == 422
+
+
+def test_get_users_not_found(admin_token):
+    users_service = UsersService()
+
+    response = users_service.get_users(
+        admin_token,
+        skip=1000,
+        limit=10,
+    )
+
+    assert response.status_code == 200
+    assert response.json() == []
