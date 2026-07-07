@@ -1,4 +1,4 @@
-# QA Diploma Project
+# AQA Diplom Project
 
 Автоматизированное тестирование веб-приложения **Web Automation Torture Lab**.
 
