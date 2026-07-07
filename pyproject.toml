@@ -32,3 +32,8 @@ markers = [
 [tool.taskipy.tasks]
 report = "allure serve allure-results"
 clean = "rm -rf allure-results allure-report"
+
+[dependency-groups]
+dev = [
+    "pylint>=4.0.6",
+]
