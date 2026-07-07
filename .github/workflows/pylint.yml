@@ -10,7 +10,17 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
 
       - run: uv sync --dev
 
-      - run: uv run pylint .
+      - name: Cache Pylint data
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pylint
+          key: ${{ runner.os }}-pylint-${{ hashFiles('**/uv.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pylint-
+
+      - run: uv run pylint -j 0 --ignore=.venv .
