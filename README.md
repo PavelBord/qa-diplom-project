@@ -1,4 +1,4 @@
-# AQA Diploma Project
+# AQA Diplom Project
 
 ![Python](https://img.shields.io/badge/Python-3.14-3776AB?logo=python&logoColor=white)
 ![Pytest](https://img.shields.io/badge/Pytest-9.0-0A9EDC?logo=pytest&logoColor=white)
