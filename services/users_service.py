@@ -1,12 +1,10 @@
 from services.http_client import HttpClient
-
-
-BASE_URL = "http://localhost:8000"
+from config import API_URL
 
 
 class UsersService:
     def __init__(self) -> None:
-        self.client = HttpClient(BASE_URL)
+        self.client = HttpClient(API_URL)
 
     def get_headers(self, token: str) -> dict:
         return {"Authorization": f"Bearer {token}"}
