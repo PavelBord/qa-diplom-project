@@ -1,7 +1,7 @@
 [project]
 name = "qa-diplom-project"
 version = "0.1.0"
-description = "QA diploma project"
+description = "AQA Diplom Project"
 requires-python = ">=3.14"
 dependencies = [
     "allure-pytest>=2.16.0",
