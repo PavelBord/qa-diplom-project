@@ -9,9 +9,7 @@ wheels/
 allure-results
 allure-report
 .vscode
+.env
 # Virtual environments
 .venv
-README.md
-tests/api/
-models/
-services/
+

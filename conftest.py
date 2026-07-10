@@ -5,9 +5,7 @@ from pages.home_page import HomePage
 from pages.boards_page import BoardsPage
 from pages.tasks_page import TasksPage
 from pages.dashboard_page import DashboardPage
-
-EMAIL: str = "admin@example.com"
-PASSWORD: str = "admin123"
+from config import EMAIL, PASSWORD
 
 
 @pytest.fixture(scope="function")
@@ -36,9 +34,8 @@ def tasks_page(page: Page) -> TasksPage:
 
 
 @pytest.fixture(scope="function")
-def authorized_page(page: Page, login_page: LoginPage, dashboard_page: DashboardPage) -> Page:
+def login_as_admin(page: Page, login_page: LoginPage) -> Page:
     login_page.open()
     login_page.login(EMAIL, PASSWORD)
-    dashboard_page.check_user_info()
 
     return page
