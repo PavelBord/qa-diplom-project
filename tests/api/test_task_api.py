@@ -97,3 +97,87 @@ def test_search_tasks_with_params(admin_token, q, skip, limit):
     tasks = response.json()
     if tasks:
         TaskModel(**tasks[0])
+
+
+def test_create_task_without_title(admin_token):
+    board_id = create_board(admin_token)
+
+    task_data = {
+        "title": "",
+        "description": "Task for API test",
+        "status": "todo",
+        "priority": "medium",
+        "assignee_id": 0,
+    }
+
+    response = TasksService().create_task(
+        board_id=board_id,
+        task_data=task_data,
+        token=admin_token,
+    )
+
+    assert response.status_code == 422
+
+
+def test_create_task_with_invalid_status(admin_token):
+    board_id = create_board(admin_token)
+
+    task_data = {
+        "title": "Test task",
+        "description": "Task for API test",
+        "status": "invalid_status",
+        "priority": "medium",
+        "assignee_id": 0,
+    }
+
+    response = TasksService().create_task(
+        board_id=board_id,
+        task_data=task_data,
+        token=admin_token,
+    )
+
+    assert response.status_code == 422
+
+
+def test_create_task_with_invalid_priority(admin_token):
+    board_id = create_board(admin_token)
+
+    task_data = {
+        "title": "Test task",
+        "description": "Task for API test",
+        "status": "todo",
+        "priority": "invalid_priority",
+        "assignee_id": 0,
+    }
+
+    response = TasksService().create_task(
+        board_id=board_id,
+        task_data=task_data,
+        token=admin_token,
+    )
+
+    assert response.status_code == 422
+
+
+def test_delete_task_with_invalid_id(admin_token):
+    board_id = create_board(admin_token)
+
+    response = TasksService().delete_task(
+        board_id=board_id,
+        task_id=999,
+        token=admin_token,
+    )
+
+    assert response.status_code == 404
+
+
+def test_search_tasks_not_found(admin_token):
+    response = TasksService().search_tasks(
+        token=admin_token,
+        q="test123",
+        skip=0,
+        limit=10,
+    )
+
+    assert response.status_code == 200
+    assert response.json() == []

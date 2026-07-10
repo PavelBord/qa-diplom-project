@@ -19,7 +19,9 @@ testpaths = ["tests"]
 pythonpath = ["."]
 addopts = "-v  --alluredir=allure-results --clean-alluredir"
 base_url = "http://localhost:3000"
-markers = [
+markers = [ 
+    "home: Home page tests",
+    "login: Login tests",
     "dashboard: Dashboard tests",
     "boards: Boards tests",
     "tasks: Tasks tests",
@@ -30,3 +32,8 @@ markers = [
 [tool.taskipy.tasks]
 report = "allure serve allure-results"
 clean = "rm -rf allure-results allure-report"
+
+[dependency-groups]
+dev = [
+    "pylint>=4.0.6",
+]
