@@ -2,15 +2,13 @@ from services.http_client import HttpClient
 from config import API_URL
 
 
-class TasksService:
+class TasksService():
     def __init__(self) -> None:
+
         self.client = HttpClient(API_URL)
 
-    def get_headers(self, token: str) -> dict:
-        return {"Authorization": f"Bearer {token}"}
-
     def get_tasks(
-            self,
+        self,
             board_id: int,
             token: str,
             status: str | None = None,
@@ -22,7 +20,7 @@ class TasksService:
                 "status": status,
                 "priority": priority,
             },
-            headers=self.get_headers(token),
+            headers=self.client.get_headers(token),
         )
 
     def create_task(
@@ -34,7 +32,7 @@ class TasksService:
         return self.client.post(
             f"/boards/{board_id}/tasks",
             json=task_data,
-            headers=self.get_headers(token),
+            headers=self.client.get_headers(token),
         )
 
     def search_tasks(
@@ -51,7 +49,7 @@ class TasksService:
                 "skip": skip,
                 "limit": limit,
             },
-            headers=self.get_headers(token),
+            headers=self.client.get_headers(token),
         )
 
     def delete_task(
@@ -62,5 +60,5 @@ class TasksService:
     ):
         return self.client.delete(
             f"/boards/{board_id}/tasks/{task_id}",
-            headers=self.get_headers(token),
+            headers=self.client.get_headers(token),
         )

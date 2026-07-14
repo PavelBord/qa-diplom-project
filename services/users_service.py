@@ -2,12 +2,9 @@ from services.http_client import HttpClient
 from config import API_URL
 
 
-class UsersService:
+class UsersService():
     def __init__(self) -> None:
         self.client = HttpClient(API_URL)
-
-    def get_headers(self, token: str) -> dict:
-        return {"Authorization": f"Bearer {token}"}
 
     def get_users(
         self,
@@ -21,7 +18,7 @@ class UsersService:
                 "skip": skip,
                 "limit": limit
             },
-            headers=self.get_headers(token),
+            headers=self.client.get_headers(token),
         )
 
     def update_user(
@@ -33,7 +30,7 @@ class UsersService:
         return self.client.put(
             f"/users/{user_id}",
             json=user_data,
-            headers=self.get_headers(token),
+            headers=self.client.get_headers(token),
         )
 
     def delete_user(
@@ -43,5 +40,5 @@ class UsersService:
     ):
         return self.client.delete(
             f"/users/{user_id}",
-            headers=self.get_headers(token),
+            headers=self.client.get_headers(token),
         )
